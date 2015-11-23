@@ -5,9 +5,37 @@
 	<title>Demo</title>
 </head>
 <body>
-
-<input type="file" accept="">
+	<input type="file"  accept=".txt,.log" required="true">
 	<script src="../src/jquery-2.1.4.min.js"></script>
 	<script src="../src/jquery.uploadfile.js"></script>
+	<script>
+    $(function() {
+      $('input').eq(0).uploadfile({
+        url: "/",
+        file: 'file',
+        accept: [],
+        timeout: 6000000,
+        autoUpload: true,
+        dataType: "json",
+        data: {},
+        selectError: function(filename) {
+          alert('The file [' + filename + '] not accept');
+          return false;
+        },
+        before: function(xhr) {
+          console.info("before upload file");
+        },
+        error: function(xhr) {
+          console.error("upload file error");
+        },
+        success: function(data) {
+          console.info("upload file success");
+        },
+        complete: function(data) {
+          console.info("upload file complete");
+        }
+      });
+    })
+	</script>
 </body>
 </html>

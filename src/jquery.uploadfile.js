@@ -8,14 +8,14 @@
   "use strict";
   var pluginName = 'uploadfile';
   var getExt = function(filename) {
-    return '.' + (filename.split('.').pop().toLowerCase());
+    return  (filename.split('.').pop().toLowerCase());
   };
   var checkAccept = function(acceptArr, filename) {
     if ((!acceptArr) || acceptArr.length <= 0 || (!filename)) {
       return true;
     }
     var ext = getExt.call(null, filename);
-    if ($.inArray(ext, acceptArr) <= -1) {
+    if ($.inArray(ext, acceptArr) <= -1&&$.inArray('.'+ext, acceptArr) <= -1) {
       return false;
     }
     return true;
@@ -146,7 +146,9 @@
     },
     destroy: function() {            
       return $(this).each(function() {                
-        var $this = $(this);                
+        var $this = $(this);        
+        $this.off('change', checkFileType);
+        $this.off('change', autoUpload);        
         $this.removeData(pluginName);            
       });        
     }

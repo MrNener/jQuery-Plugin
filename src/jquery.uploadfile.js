@@ -81,7 +81,6 @@
     if (!checkAccept.call(null, settings.accept, $this.val())) {
       settings.selectError.call($this, $this.val());
       $this.val('');
-      $this.click();
     }
     return $this;
   };

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo</title>
+  <style>
+    p{
+      border: solid 1px #ccc;
+    }
+  </style>
+</head>
+<body>
+  <p>
+    <label for="file_auto">自动上传：</label>
+    <input type="file"  id="file_auto"   required="true"></p>
+  <p>
+    <label for="file_m">手动上传：</label>
+    <input type="file"  id ="file_m" required="true">  
+    <input type="button" value="上传" id="upload"></p>
+  <script src="src/jquery-2.1.4.min.js"></script>
+  <script src="src/jquery.uploadfile.min.js"></script>
+  <script>
+    $(function() {
+      var options={
+        url: "/",
+        file: 'file',
+        accept: ['.*'],
+        timeout: 6000000,
+        autoUpload: true,
+        dataType: "json",
+        data: {address:'Guiyang'},
+        selectError: function(filename) {
+          alert('The file [' + filename + '] not accept');
+          return false;
+        },
+        before: function(xhr) {
+          alert("begin upload file");
+        },
+        error: function(xhr) {
+          alert("upload file error");
+        },
+        success: function(data) {
+          alert("upload file success");
+        },
+        complete: function(data) {
+          alert("upload file complete");
+        }
+      };
+      var paramData={name:'dsds',age:15};
+      //use $('#file_auto').eq(0).uploadfile('init',options)  or 
+      $('#file_auto').eq(0).uploadfile(options);
+      options.autoUpload=false;
+      //use $('#file_m').eq(0).uploadfile('init',options) or
+      $('#file_m').eq(0).uploadfile(options);
+      $('#upload').click(function(){
+        //use $('#file_m').eq(0).uploadfile('upload',paramData) or
+        $('#file_m').eq(0).uploadfile(true,paramData);
+      });
+    })
+  </script>
+</body>
+</html>

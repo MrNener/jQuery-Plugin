@@ -14,6 +14,9 @@
     if ((!acceptArr) || acceptArr.length <= 0 || (!filename)) {
       return true;
     }
+    if(acceptArr.length==1&&(acceptArr[0]=='.*'||acceptArr[0]=='*')){
+      return true;
+    }
     var ext = getExt.call(null, filename);
     if ($.inArray(ext, acceptArr) <= -1&&$.inArray('.'+ext, acceptArr) <= -1) {
       return false;
